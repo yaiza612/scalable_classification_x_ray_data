@@ -97,7 +97,7 @@ Taking this into account, take the inceptio_V3 and do the transfer learning coul
 
 As a follow up experiment, we would use still transfer learning of different models good in image classification but without stacking them together, and at the end we would have implemented a voting system between the models.
 
-## 8. REFERENCES
+## REFERENCES
 
   - Anunay Gupta,  Anjum, Shreyansh Gupta, Rahul Katarya - InstaCovNet-19: A deep learning classification model for the detection of COVID-19 patients using Chest X-ray, Applied Soft Computing, Volume 99, 2021, 106859, ISSN 1568-4946, https://doi.org/10.1016/j.asoc.2020.106859. (https://www.sciencedirect.com/science/article/pii/S1568494620307973)
   - Daniel Kermany, Kang Zhang, Michael Goldbaum - Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification, 6 January 2018, Version 2, DOI: 10.17632/rscbjbr9sj.2, https://data.mendeley.com/datasets/rscbjbr9sj/2?__hstc=25856994.9a09a91357a104706292fa960434cfb0.1643116296328.1643116296328.1643116296328.1&__hssc=25856994.1.1643116296328&__hsfp=4215451866 
