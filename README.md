@@ -84,31 +84,24 @@ The images are labelled as (disease)-(random patient ID)-(image number for each 
 
 ### Workflow
 
-Our pipeline, which can be found in more detail in "Annex I - Code" at the end of this document, uses technologies such as pyspark, orca and pytorch to process the data, checking that the stacking works as it should and providing the results we can provide in the following section.
+Our pipeline, which can be found in more detail in "Annex_I_X_ray_images_big_data" at the end of this document, uses technologies such as pyspark, orca and pytorch to process the data, checking that the stacking works as it should and providing the results we can provide in the following section.
 
-## Results
+## Results and discussion
 
-### Validation of the Model
+The accuracy is lower as expected taking in account the model. We can observe that the loss is very small but the accuraccy remains lower. The loss indicate how well learn the model, so what we can see here is that there are a problem referred to what it is learning, since the accuracy is not good.
 
-Here do the visualization of the loss, accuracy, visualize the model graph, the roc curve, the histograms and the confussion matrix.
+It is difficult to scale a integrate neural network like the one of the paper since use 5 neural network in total ones bigger than others and all of then with a really different last layer. For example, inception_v3 is a really good model for x-ray image classification and a lot of previous works with transfer learning with inception_V3 have shown already this fact. Nevertheless is a really big model and stuck this model with another requires in the training a big memory ram that we don't have.
 
-## CONCLUSIONS
+Saying this we could have taken the inceptio_V3 and do the transfer learning but such experiment would'nt be original neither fun, since was an experiment already tried by a lot of people.
 
-
-
-
-```python
-
-```
+If we would need to repeat the whole process, we think we would use still transfer learning of different models good in image classification but without stacking them together, and at the end we would have implemented a voting system between the models.
 
 ## 8. REFERENCES
 
-  - Pneumonia - Worl Health Organisation : https://www.who.int/news-room/fact-sheets/detail/pneumonia 
-  - Pneumonia - Wikipedia : https://en.wikipedia.org/wiki/Pneumonia 
-  - Pneumonia - Mayo Clinic : https://www.mayoclinic.org/diseases-conditions/pneumonia/diagnosis-treatment/drc-20354210
   - Anunay Gupta,  Anjum, Shreyansh Gupta, Rahul Katarya - InstaCovNet-19: A deep learning classification model for the detection of COVID-19 patients using Chest X-ray, Applied Soft Computing, Volume 99, 2021, 106859, ISSN 1568-4946, https://doi.org/10.1016/j.asoc.2020.106859. (https://www.sciencedirect.com/science/article/pii/S1568494620307973)
   - Daniel Kermany, Kang Zhang, Michael Goldbaum - Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification, 6 January 2018, Version 2, DOI: 10.17632/rscbjbr9sj.2, https://data.mendeley.com/datasets/rscbjbr9sj/2?__hstc=25856994.9a09a91357a104706292fa960434cfb0.1643116296328.1643116296328.1643116296328.1&__hssc=25856994.1.1643116296328&__hsfp=4215451866 
   - Daniel S. Kermany,Michael Goldbaum,Wenjia Cai,Carolina C.S. Valentim,Huiying Liang,Sally L. Baxter,Alex McKeown,Ge Yang,Xiaokang Wu,Fangbing Yan,Justin Dong,Made K. Prasadha,Jacqueline Pei,Magdalene Y.L. Ting,Jie Zhu,Christina Li,Sierra Hewett et al. - Identifying Medical Diagnoses and Treatable Diseases by Image-Based Deep Learning, Cell, Elsevier, 22 February 2018, DOI:https://doi.org/10.1016/j.cell.2018.02.010, https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5.
-  - X-Ray images - kaggle.com : https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia
+- Fuzhen Zhuang, Zhiyuan Qi, Keyu Duan, Dongbo Xi, Yongchun Zhu, Hengshu Zhu, Senior Member, IEEE,
+Hui Xiong, Fellow, IEEE, and Qing He - A Comprehensive Survey on Transfer Learning. https://arxiv.org/abs/1911.02685v3
 
 
