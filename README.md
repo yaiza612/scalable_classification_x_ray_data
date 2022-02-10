@@ -1,7 +1,7 @@
 # **Final Project - Pneumonia identification from X-Ray**
 ### Big Data Engineering
 
-*by Yaiza ARNAIZ ALCACER, Pablo MARCOS LOPEZ and Lexane LOUIS*
+*by Yaiza ARNAIZ ALCACER, Pablo MARCOS LOPEZ*
 
 ## Abstract
 
@@ -11,7 +11,8 @@ The simplest way to determine the extent and location of the infection, so that 
 
 The aim of this paper is to present a complete model of thoracic X-ray image analysis, which we have developed by stacking two different Machine Leaning models, so that future scientists can build on it to hopefully improve the diagnostic lead times and economic efficiency of this class of tests.
 
-INTRODUCE SHORT RESULTS
+The results after training with two epochs is unexpected for the small loss obtained. The model implemented does not learn what is needed for an accurate classification. Nevertheless we configure a scalable model following the current state of the art and prove the transfer learning of more than one model stacking them together. As a follow up 
+experiment, the transfer learning can be still done with more than one model but instead stacking, a voting system could be implemented. 
 
 ## INTRODUCTION
 
@@ -88,13 +89,13 @@ Our pipeline, which can be found in more detail in "Annex_I_X_ray_images_big_dat
 
 ## Results and discussion
 
-The accuracy is lower as expected taking in account the model. We can observe that the loss is very small but the accuraccy remains lower. The loss indicate how well learn the model, so what we can see here is that there are a problem referred to what it is learning, since the accuracy is not good.
+The accuracy is lower as expected taking in account the model. As observed, the loss is very small but the accuraccy remains lower. The loss indicate how well learn the model, showing that there are a problem referring to what it is learning, since the accuracy is not good.
 
-It is difficult to scale a integrate neural network like the one of the paper since use 5 neural network in total ones bigger than others and all of then with a really different last layer. For example, inception_v3 is a really good model for x-ray image classification and a lot of previous works with transfer learning with inception_V3 have shown already this fact. Nevertheless is a really big model and stuck this model with another requires in the training a big memory ram that we don't have.
+It is difficult to scale a integrate neural network like the one of the paper since use 5 neural network in total. Some bigger than others and all of then with a really different last layer. For example, inception_v3 is a really good model for x-ray image classification and a lot of previous works with transfer learning with inception_V3 have shown already this fact. Nevertheless is a really big model and stuck this model with another requires in the training a big memory ram that the current set up didn't have disponible.
 
-Saying this we could have taken the inceptio_V3 and do the transfer learning but such experiment would'nt be original neither fun, since was an experiment already tried by a lot of people.
+Taking this into account, take the inceptio_V3 and do the transfer learning could be a good option but such experiment would'nt be original neither fun, since was an experiment already tried by a lot of previous works.
 
-If we would need to repeat the whole process, we think we would use still transfer learning of different models good in image classification but without stacking them together, and at the end we would have implemented a voting system between the models.
+As a follow up experiment, we would use still transfer learning of different models good in image classification but without stacking them together, and at the end we would have implemented a voting system between the models.
 
 ## 8. REFERENCES
 
