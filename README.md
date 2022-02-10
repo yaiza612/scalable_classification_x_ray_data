@@ -89,9 +89,9 @@ Our pipeline, which can be found in more detail in "Annex_I_X_ray_images_big_dat
 
 ## Results and discussion
 
-The accuracy is lower as expected taking in account the model. As observed, the loss is very small but the accuraccy remains lower. The loss indicate how well learn the model, showing that there are a problem referring to what it is learning, since the accuracy is not good.
+The accuracy (~68.3%) is lower as expected taking in account the model. As observed, the loss is very small but the accuraccy remains lower. The loss indicate how well learn the model, showing that there are a problem referring to what it is learning, since the accuracy is not good.
 
-It is difficult to scale a integrate neural network like the one of the paper since use 5 neural network in total. Some bigger than others and all of then with a really different last layer. For example, inception_v3 is a really good model for x-ray image classification and a lot of previous works with transfer learning with inception_V3 have shown already this fact. Nevertheless is a really big model and stuck this model with another requires in the training a big memory ram that the current set up didn't have disponible.
+It is difficult to scale a integrate neural network like the one of (Anunay Gupta et al., 2021) since use 5 neural network in total. Some bigger than others and all of then with a really different last layer. For example, inception_v3 is a really good model for x-ray image classification and a lot of previous works with transfer learning with inception_V3 have shown already this fact. Nevertheless is a really big model and stuck this model with another requires in the training a big memory ram that the current set up didn't have disponible.
 
 Taking this into account, take the inceptio_V3 and do the transfer learning could be a good option but such experiment would'nt be original neither fun, since was an experiment already tried by a lot of previous works.
 
