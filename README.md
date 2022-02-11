@@ -11,7 +11,7 @@ The simplest way to determine the extent and location of the infection, so that 
 
 The aim of this paper is to present a complete model of thoracic X-ray image analysis, which we have developed by stacking two different Machine Leaning models, so that future scientists can build on it to hopefully improve the waiting time and economic efficiency of this class of tests.
 
-The results after training with two epochs is unexpected given the small loss obtained, and, at 68.26%, the implemented model is not excessively accurate when classifying. Nevertheless, the model we are presenting is scalable, shows state-of-the-art techniques, and proves that that transfered learning is possible even for more than one, stacked networks. It is up to future researchers (possibly for those with more ressources) to improve the stacking process by, for example implementing a voting system in the networks.
+The results after training with two epochs is unexpected given the small loss obtained, and, at 68.26%, the implemented model is not excessively accurate when classifying. Nevertheless, the model we are presenting is scalable, shows state-of-the-art techniques, and proves that that transfer learning is possible even for more than one, stacked networks. It is up to future researchers (possibly for those with more ressources) to improve the stacking process or, for example to implement a voting system among the networks, which could help with accuracy.
 
 ## INTRODUCTION
 
@@ -87,7 +87,7 @@ Different approaches can be taken in this respect, so we decided to look at the 
 
 However, after performing said stacking, we encounter a RAM problem: neither the 12 gb of Google Collab Free, nor those available in its Pro version, are enough to run the code, for which, it seems, the authors of the respective paper must have had a lot of resources. Thus, it is not possible to define exactly the same neural network as in our reference paper, as the session is squashed due to the ram limit, but we have nonetheless defined the code and found that, until the limit is reached, it works without problems (it can be consulted in the Annex). However, and since with our current resources this code will not run, we will define a new neural network, one that only stacks two sub-networks, but that Google Collab can handle.
 
-We found that the stacking works well and that we can concatenate the models if both have the same shape. That means that we will need to look at every last layer of each network to be sure they match. The networks themselves can be improved even further using industry-standard best practices for transfered learning.[^4]
+We found that the stacking works well and that we can concatenate the models if both have the same shape. That means that we will need to look at every last layer of each network to be sure they match. The networks themselves can be improved even further using industry-standard best practices for transfer learning.[^4]
 
 For the data itself, we will do the following preprocessing:
 
