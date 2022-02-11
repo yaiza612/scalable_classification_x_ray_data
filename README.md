@@ -11,7 +11,7 @@ The simplest way to determine the extent and location of the infection, so that 
 
 The aim of this paper is to present a complete model of thoracic X-ray image analysis, which we have developed by stacking two different Machine Leaning models, so that future scientists can build on it to hopefully improve the waiting time and economic efficiency of this class of tests.
 
-The results after training with two epochs is unexpected given the small loss obtained, and, at 68.26%, the implemented model is not excessively accurate when classifying. Nevertheless, the model we are presenting is scalable, shows state-of-the-art techniques, and proves that that transfer learning is possible even for more than one, stacked networks. It is up to future researchers (possibly for those with more ressources) to improve the stacking process. As further experiment (not done yet in this field) we want to implement a voting system among the networks, which could help with accuracy.
+The present model has an accuracy of 68.26 %. Nevertheless, it is designed to handle big data and uses state of the art techniques presented in A. Gupta et al. *[^1]. The approach uses several networks pretrained on ImageNet and stacks their learned representations. It is up to future researchers (possibly for those with more resources) to improve the stacking process. As further experiment (not done yet in this field) we want to implement a voting system among the networks, which could help with accuracy. 
 
 ## INTRODUCTION
 
@@ -100,7 +100,7 @@ And then feed it to pytorch (a ML library initially developed at Facebook) using
 
 ## Results and discussion
 
-The accuracy (~68.3%) is lower than expected, considering that our experiment stacks 2 different networks. As we can see in the annex, the loss is very small, but the accuracy is still quite low. This is strange, since the loss usually indicates how well the model learns. Nevertheless, a low loss does not mean better accuracy because the model could be learning in an unexpecting way. A low loss with a low accuracy is called high variance, and it is the issue that is present in our model.
+The accuracy (~68.3%) is lower than expected, considering that our experiment stacks 2 different networks. As we can see in the annex, the loss is very small, but the accuracy is still quite low. This is strange, since the loss usually indicates how well the model learns. Nevertheless, a low loss does not mean better accuracy because the model could be learning in an unexpecting way. A possible explanation for low loss with a low accuracy is called high variance.
 
 We can conclude that scaling an integrated neural network like that of *Anunay Gupta et al.*[^1] is extremely complicated, since 5 neural networks are used in total, some larger than others and all with a very different last layer. For example, inception_v3 is a really good model for X-ray image classification, as you can read in previous work with transfer learning. However, it is a very large model and stacking this model with another one requires a lot of ram memory in training that we do not have now.
 
