@@ -1,7 +1,7 @@
 # **Final Project - Pneumonia identification from X-Ray**
 ### Big Data Engineering
 
-*by Yaiza ARNAIZ ALCACER, Pablo MARCOS LOPEZ*
+*by Yaiza ARNAIZ ALCACER and Pablo Ignacio MARCOS LOPEZ*
 
 ## Abstract
 
@@ -9,10 +9,9 @@ Pneumonia is a serious illness characterised by a severe cough with phlegm, feve
 
 The simplest way to determine the extent and location of the infection, so that it can be treated more efficiently, is by taking chest X-rays; however, at present, analysis of these X-rays is limited to what humans are capable of, with the time delays and enormous costs that this entails.
 
-The aim of this paper is to present a complete model of thoracic X-ray image analysis, which we have developed by stacking two different Machine Leaning models, so that future scientists can build on it to hopefully improve the diagnostic lead times and economic efficiency of this class of tests.
+The aim of this paper is to present a complete model of thoracic X-ray image analysis, which we have developed by stacking two different Machine Leaning models, so that future scientists can build on it to hopefully improve the waiting time and economic efficiency of this class of tests.
 
-The results after training with two epochs is unexpected for the small loss obtained. The model implemented does not learn what is needed for an accurate classification. Nevertheless we configure a scalable model following the current state of the art and prove the transfer learning of more than one model stacking them together. As a follow up 
-experiment, the transfer learning can be still done with more than one model but instead stacking, a voting system could be implemented. 
+The results after training with two epochs is unexpected given the small loss obtained, and, at 68.26%, the implemented model is not excessively accurate when classifying. Nevertheless, the model we are presenting is scalable, shows state-of-the-art techniques, and proves that that transfer learning is possible even for more than one, stacked networks. It is up to future researchers (possibly for those with more ressources) to improve the stacking process. As further experiment (not done yet in this field) we want to implement a voting system among the networks, which could help with accuracy.
 
 ## INTRODUCTION
 
@@ -63,9 +62,9 @@ The most common treatments include antibiotics to treat bacterial pneumonia, cou
 
 As we have seen, the inference of medical diagnoses from X-ray images is an essential feature in the diagnosis of pneumonia. However, during the CoViD-19 pandemic in which we live, the number of doctors available (either due to contagion or confinement) has radically decreased, while demand has increased due to coronavirus-derived pneumonia cases, creating a bottleneck that needs an urgent solution.
 
-Thus, the potential of Deep Learning models of X-ray images has been investigated for some years now to hopefully find a model with sufficient accuracy, recall and precision for the detection of COVID-19 induced pneumonia using chest radiography without human supervision. In the paper ["InstaCovNet-19: A deep learning classification model for the detection of COVID-19 patients using Chest X-ray"](https://www.sciencedirect.com/science/article/pii/S1568494620307973), *Gupta et al* present a model that, precisely, is able to achieve greater than 99% accuracy (much higher than human) by stacking pre-existing networks called Iception, NASnet, Xception, MobileNetV2 and ResNet, all of which are image classification models. 
+Thus, the potential of Deep Learning models of X-ray images has been investigated for some years now to hopefully find a model with sufficient accuracy, recall and precision for the detection of COVID-19 induced pneumonia using chest radiography without human supervision. In the paper "InstaCovNet-19: A deep learning classification model for the detection of COVID-19 patients using Chest X-ray"[^1], *Gupta et al* present a model that, precisely, is able to achieve greater than 99% accuracy (much higher than human) by stacking pre-existing networks called Iception, NASnet, Xception, MobileNetV2 and ResNet, all of which are image classification models.
 
-![](./integrated-stacking.jpeg)
+![A diagram showing how integrated stacking works, and, more precisely, how it worked in the InstaCovNet-19 paper. Own work - now uploaded to Wikimedia Commons :p](./integrated-stacking.png)
 
 Our original idea was to study the performance of this model (InstaCovNet-19), but, since its code is not available, and knowing, thanks to this paper, that stacking neural networks significantly improves its results, we have decided to **design our own model using (py)Spark and integrated stacking**.
 
@@ -73,36 +72,48 @@ Our original idea was to study the performance of this model (InstaCovNet-19), b
 
 ### Dataset Description
 
-To train, test and validate our models, we have used a dataset of validated OCT images and chest X-rays as described and analysed in "Deep learning-based classification and referral of treatable human diseases", [available on Mendeley Data under CC-By-Sa 4.0 licence](https://data.mendeley.com/datasets/rscbjbr9sj/2).
+To train, test and validate our models, we have used a dataset of validated OCT images and chest X-rays as described and analysed in "Deep learning-based classification and referral of treatable human diseases", available on Mendeley Data under CC-By-Sa 4.0 licence.[^2]
 
-
-This dataset consists of a group of chest X-ray images (anterior-posterior) selected from retrospective cohorts of paediatric patients aged one to five years from the *Guangzhou Women and Children's Medical Center* in Guangzhou (China), selecting for quality control all poor quality or unreadable scans. The diagnostic images were graded by two medical experts before being cleared for AI system training and, in order to account for any grading errors, the evaluation set was also reviewed by a third expert. All radiographs were performed as part of the patients' routine clinical care.
+This dataset consists of a group of chest X-ray images (anterior-posterior) selected from retrospective cohorts of paediatric patients aged one to five years from the *Guangzhou Women and Children's Medical Center* in Guangzhou (China), selecting for quality control all poor quality or unreadable scans. The diagnostic images were graded by two medical experts before being cleared for AI system training and, in order to account for any grading errors, the evaluation set was also reviewed by a third expert. All radiographs were performed as part of the patients' routine clinical care.[^3]
 
 The images are divided into a training set and a separate patient test set. Images are labelled as (disease)-(random patient ID)-(image number for each patient) and divided into 4 directories: CNV, DME, DRUSEN and NORMAL.
 The images are labelled as (disease)-(random patient ID)-(image number for each patient) and divided into 3 folders: Training and Test, which are part of the original dataset; and Validation, which separates 16 images for purposes of checking the validity of the model. Each of these three folders contains the subfolders "normal" and "Pneumonia", to compare between positive and negative patients.
 
-![](./pulmones.png)
+![On the right, infiltrated lung, suggesting a possible pneumonia. On the right, a normal lung. Both images are CC-By-Sa 4.0 by CNX OpenStax via Wikimedia Commons](./pulmones.png)
 
 ### Workflow
 
-Our pipeline, which can be found in more detail in "Annex_I_X_ray_images_big_data" at the end of this document, uses technologies such as pyspark, orca and pytorch to process the data, checking that the stacking works as it should and providing the results we can provide in the following section.
+Different approaches can be taken in this respect, so we decided to look at the state of the art for inspiration.[^1] Our original idea was to study the performance of the InstaCovNet-19 model, but, since its code is not available, and knowing, thanks to this paper, that stacking neural networks significantly improves classification results, we have decided to **design our own model using (py)Spark and integrated stacking**.
+
+However, after performing said stacking, we encounter a RAM problem: neither the 12 gb of Google Collab Free, nor those available in its Pro version, are enough to run the code, for which, it seems, the authors of the respective paper must have had a lot of resources. Thus, it is not possible to define exactly the same neural network as in our reference paper, as the session is squashed due to the ram limit, but we have nonetheless defined the code and found that, until the limit is reached, it works without problems (it can be consulted in the Annex). However, and since with our current resources this code will not run, we will define a new neural network, one that only stacks two sub-networks, but that Google Collab can handle.
+
+We found that the stacking works well and that we can concatenate the models if both have the same shape. That means that we will need to look at every last layer of each network to be sure they match. The networks themselves can be improved even further using industry-standard best practices for transfer learning.[^4]
+
+For the data itself, we will do the following preprocessing:
+
+* CenterCrop - Resizes the image to 224 x 224
+* RandomFlip - Randomly flips 50% of the image horizontally
+* ColorJitter- Randomly adjusts the brigthness of 50% of the images
+* Normalize - Normalizes the images
+
+And then feed it to pytorch (a ML library initially developed at Facebook) using Orca from Analytics Zoo and pySpark for distributed running.
 
 ## Results and discussion
 
-The accuracy (~68.3%) is lower as expected taking in account the model. As observed, the loss is very small but the accuraccy remains lower. The loss indicate how well learn the model, showing that there are a problem referring to what it is learning, since the accuracy is not good.
+The accuracy (~68.3%) is lower than expected, considering that our experiment stacks 2 different networks. As we can see in the annex, the loss is very small, but the accuracy is still quite low. This is strange, since the loss usually indicates how well the model learns. Nevertheless, a low loss does not mean better accuracy because the model could be learning in an unexpecting way. A low loss with a low accuracy is called high variance, and it is the issue that is present in our model.
 
-It is difficult to scale a integrate neural network like the one of (Anunay Gupta et al., 2021) since use 5 neural network in total. Some bigger than others and all of then with a really different last layer. For example, inception_v3 is a really good model for x-ray image classification and a lot of previous works with transfer learning with inception_V3 have shown already this fact. Nevertheless is a really big model and stuck this model with another requires in the training a big memory ram that the current set up didn't have disponible.
+We can conclude that scaling an integrated neural network like that of *Anunay Gupta et al.*[^1] is extremely complicated, since 5 neural networks are used in total, some larger than others and all with a very different last layer. For example, inception_v3 is a really good model for X-ray image classification, as you can read in previous work with transfer learning. However, it is a very large model and stacking this model with another one requires a lot of ram memory in training that we do not have now.
 
-Taking this into account, take the inceptio_V3 and do the transfer learning could be a good option but such experiment would'nt be original neither fun, since was an experiment already tried by a lot of previous works.
+With this in mind, taking inceptio_V3 and doing transfer learning could be a good option, but such an experiment would not be original or fun, as it has already been tried and tested by many previous works.
 
-As a follow up experiment, we would use still transfer learning of different models good in image classification but without stacking them together, and at the end we would have implemented a voting system between the models.
+As a further experiment, we could use transfer learning of different good models in image classification, but without stacking them together, and then implement a voting system.
 
 ## REFERENCES
 
-  - Anunay Gupta,  Anjum, Shreyansh Gupta, Rahul Katarya - InstaCovNet-19: A deep learning classification model for the detection of COVID-19 patients using Chest X-ray, Applied Soft Computing, Volume 99, 2021, 106859, ISSN 1568-4946, https://doi.org/10.1016/j.asoc.2020.106859. (https://www.sciencedirect.com/science/article/pii/S1568494620307973)
-  - Daniel Kermany, Kang Zhang, Michael Goldbaum - Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification, 6 January 2018, Version 2, DOI: 10.17632/rscbjbr9sj.2, https://data.mendeley.com/datasets/rscbjbr9sj/2?__hstc=25856994.9a09a91357a104706292fa960434cfb0.1643116296328.1643116296328.1643116296328.1&__hssc=25856994.1.1643116296328&__hsfp=4215451866 
-  - Daniel S. Kermany,Michael Goldbaum,Wenjia Cai,Carolina C.S. Valentim,Huiying Liang,Sally L. Baxter,Alex McKeown,Ge Yang,Xiaokang Wu,Fangbing Yan,Justin Dong,Made K. Prasadha,Jacqueline Pei,Magdalene Y.L. Ting,Jie Zhu,Christina Li,Sierra Hewett et al. - Identifying Medical Diagnoses and Treatable Diseases by Image-Based Deep Learning, Cell, Elsevier, 22 February 2018, DOI:https://doi.org/10.1016/j.cell.2018.02.010, https://www.cell.com/cell/fulltext/S0092-8674(18)30154-5.
-- Fuzhen Zhuang, Zhiyuan Qi, Keyu Duan, Dongbo Xi, Yongchun Zhu, Hengshu Zhu, Senior Member, IEEE,
-Hui Xiong, Fellow, IEEE, and Qing He - A Comprehensive Survey on Transfer Learning. https://arxiv.org/abs/1911.02685v3
+[^1]: A. Gupta, Anjum, S. Gupta, y R. Katarya, «InstaCovNet-19: A deep learning classification model for the detection of COVID-19 patients using Chest X-ray», Applied Soft Computing, vol. 99, p. 106859, feb. 2021, doi: 10.1016/j.asoc.2020.106859. [Online]. Disponible en: https://www.sciencedirect.com/science/article/pii/S1568494620307973. [Accessed: February 11th, 2022]
 
+[^2]: D. Kermany, K. Zhang, y M. Goldbaum, «Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification», vol. 2, ene. 2018, doi: 10.17632/rscbjbr9sj.2. [Online]. Disponible en: https://data.mendeley.com/datasets/rscbjbr9sj/2. [Accessed: February 11th, 2022]
 
+[^3]: D. S. Kermany et al., «Identifying Medical Diagnoses and Treatable Diseases by Image-Based Deep Learning», Cell, vol. 172, n.º 5, pp. 1122-1131.e9, feb. 2018, doi: 10.1016/j.cell.2018.02.010. [Online]. Disponible en: https://www.cell.com/cell/abstract/S0092-8674(18)30154-5. [Accessed: February 11th, 2022]
+
+[^4]: F. Zhuang et al., «A Comprehensive Survey on Transfer Learning», arXiv:1911.02685 [cs, stat], jun. 2020 [Online]. Disponible en: http://arxiv.org/abs/1911.02685. [Accessed: February 11th, 2022]
