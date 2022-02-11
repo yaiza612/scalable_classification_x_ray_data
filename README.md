@@ -11,7 +11,7 @@ The simplest way to determine the extent and location of the infection, so that 
 
 The aim of this paper is to present a complete model of thoracic X-ray image analysis, which we have developed by stacking two different Machine Leaning models, so that future scientists can build on it to hopefully improve the waiting time and economic efficiency of this class of tests.
 
-The present model has an accuracy of 68.26 %. Nevertheless, it is designed to handle big data and uses state of the art techniques presented in A. Gupta et al. *[^1]. The approach uses several networks pretrained on ImageNet and stacks their learned representations. It is up to future researchers (possibly for those with more resources) to improve the stacking process. As further experiment (not done yet in this field) we want to implement a voting system among the networks, which could help with accuracy. 
+The present model has an accuracy of 68.26 %. Nevertheless, it is designed to handle big data and uses state of the art techniques presented in *Anunay Gupta et al.*[^1]. The approach uses several networks pretrained on ImageNet and stacks their learned representations. It is up to future researchers (possibly for those with more resources) to improve the stacking process. As further experiment (not done yet in this field) we want to implement a voting system among the networks, which could help with accuracy. 
 
 ## INTRODUCTION
 
