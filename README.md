@@ -87,7 +87,7 @@ Different approaches can be taken in this respect, so we decided to look at the 
 
 However, after performing said stacking, we encounter a RAM problem: neither the 12 gb of Google Collab Free, nor those available in its Pro version, are enough to run the code, for which, it seems, the authors of the respective paper must have had a lot of resources. Thus, it is not possible to define exactly the same neural network as in our reference paper, as the session is squashed due to the ram limit, but we have nonetheless defined the code and found that, until the limit is reached, it works without problems (it can be consulted in the Annex). However, and since with our current resources this code will not run, we will define a new neural network, one that only stacks two sub-networks, but that Google Collab can handle.
 
-We found that the stacking works well and that we can concatenate the models if both have the same shape. That means that we will need to look at every last layer of each network to be sure they match. The networks themselves can be improved even further using industry-standard best practices for transfer learning.[^4]
+We found that the stacking works well and that we can concatenate the models if the last layer of both have the same shape. That means that we need to look at every last layer of each network and feed its learned representation through a small amount of layers. The networks themselves can be improved even further using industry-standard best practices for transfer learning.[^4]
 
 For the data itself, we will do the following preprocessing:
 
